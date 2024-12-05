@@ -13,8 +13,8 @@ public class CarQueriesService {
 	private CarQueriesRepository carQueriesRepository;
 	
 	
-	public void saveCarQuery(CarQueries carQueries) {
-		carQueriesRepository.save(carQueries);
+	public CarQueries saveCarQuery(CarQueries carQueries) {
+		return carQueriesRepository.save(carQueries);
 	}
 
 }

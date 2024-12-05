@@ -70,13 +70,10 @@ public class BuyerService {
 //			Role role = null;
 			String[] str= data.split(",");
 			
-			buyer.setName(str[0]);
 			buyer.setEmail(str[1]);
 			buyer.setPhone(str[2]);
 			buyer.setAddress(str[3]);
-			buyer.setCity(str[4]);
-			
-			
+			user.setName(str[0]);
 			user.setUsername(str[5]);
 			user.setPassword(str[6]);
 			user.setRole(Role.BUYER);

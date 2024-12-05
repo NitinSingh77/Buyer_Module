@@ -27,7 +27,7 @@ public class CarController {
 	private DocumentService documentService;
 	
 	
-	/*-----------------------------------------------------Executive functionality----------------------------------------------------------*/
+	/*-----------------------------------------------------Car Entry----------------------------------------------------------*/
 	@PostMapping("/car/entry")
 	public ResponseEntity<?> CarEntry(@RequestBody Car car, ResponseMessageDto dto) throws InvalidCredentialsException
 	{

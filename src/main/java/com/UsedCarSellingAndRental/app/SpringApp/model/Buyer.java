@@ -15,9 +15,7 @@ public class Buyer {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
-    @Column(nullable= false)
-    private String name;
-
+ 
     @Column(nullable= false)
     private String email;
 
@@ -27,9 +25,7 @@ public class Buyer {
     @Column(nullable= false)
     private String address;
 
-    @Column(nullable= false)
-    private String city;
-
+   
     @OneToOne
     private User user;
 
@@ -42,12 +38,7 @@ public class Buyer {
     public void setId(int id) {
         this.id = id;
     }
-    public String getName() {
-        return name;
-    }
-    public void setName(String name) {
-        this.name = name;
-    }
+  
     public String getEmail() {
         return email;
     }
@@ -66,12 +57,7 @@ public class Buyer {
     public void setAddress(String address) {
         this.address = address;
     }
-    public String getCity() {
-        return city;
-    }
-    public void setCity(String city) {
-        this.city = city;
-    }
+    
     public User getUser() {
         return user;
     }

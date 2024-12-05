@@ -11,6 +11,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,6 +23,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.UsedCarSellingAndRental.app.SpringApp.JwtUtil;
 import com.UsedCarSellingAndRental.app.SpringApp.dto.JwtDto;
 import com.UsedCarSellingAndRental.app.SpringApp.dto.ResponseMessageDto;
+import com.UsedCarSellingAndRental.app.SpringApp.enums.Role;
 import com.UsedCarSellingAndRental.app.SpringApp.exception.InvalidUsernameException;
 import com.UsedCarSellingAndRental.app.SpringApp.exception.ResourceNotFoundException;
 import com.UsedCarSellingAndRental.app.SpringApp.model.Buyer;
@@ -30,6 +32,7 @@ import com.UsedCarSellingAndRental.app.SpringApp.service.BuyerService;
 import com.UsedCarSellingAndRental.app.SpringApp.service.UserSecurityService;
 import com.UsedCarSellingAndRental.app.SpringApp.service.UserService;
 @RestController
+@CrossOrigin(origins = {"http://localhost:4200"})
 public class AuthController {
 	
 	@Autowired
@@ -81,20 +84,21 @@ public class AuthController {
 	@PostMapping("/auth/sigh-up/buyer")
 	public ResponseEntity<?> buyerSignUp(@RequestBody Buyer buyer, ResponseMessageDto dto)
 	{
+//		System.out.println(buyer);
+		System.out.println("123");
 		
 		try {
 			User user = new User();
+			user.setName(buyer.getUser().getName());
 			user.setUsername(buyer.getUser().getUsername());
 			user.setPassword(buyer.getUser().getPassword());
-			user.setRole(buyer.getUser().getRole());
-			
+			user.setRole(Role.BUYER);			
 			user= userService.signUp(user);
 			buyer.setUser(user);
-			buyer.setName(buyer.getName());
 			buyer.setEmail(buyer.getEmail());
 			buyer.setPhone(buyer.getPhone());
 			buyer.setAddress(buyer.getAddress());
-			buyer.setCity(buyer.getCity());
+			
 			
 			buyerService.saveBuyer(buyer);
 			dto.setMsg("Buyer Sign-up Successful!");
@@ -108,18 +112,6 @@ public class AuthController {
 	}
 	
 	
-	/*------------------Method to check if token authentication is running or not-------------------*/
-	@GetMapping("/api/hello")
-	public String sayHello(Principal principal) {
-		String user = "";
-		if(principal == null) {
-			user = "TEMP_USER";
-		}
-		else {
-			user = principal.getName();
-		}
-		return "api accessed by: " + user;
-	}
 	
 	
 	/*-----------------------Executive functionality-------------------------------------*/
@@ -154,6 +146,23 @@ public class AuthController {
 	}
 	
 	/*========================================Buyer functionality end here=====================================================================*/
+	
+	@GetMapping("/auth/user")
+	public User getUserDetails(Principal principal) {
+		String loggedInsername= principal.getName();
+		User user= (User) userSecurityService.loadUserByUsername(loggedInsername);
+		return user;
+	}
+	
+	@PostMapping("/auth/sign-up")
+	public ResponseEntity<?> signUp(@RequestBody User user,ResponseMessageDto dto){
+		try {
+			return ResponseEntity.ok(userService.signUp(user));
+		} catch (InvalidUsernameException e) {
+			dto.setMsg(e.getMessage());
+			 return ResponseEntity.badRequest().body(dto);
+		}
+	}
 	
 }
 

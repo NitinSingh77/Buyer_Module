@@ -33,8 +33,10 @@ public class SecurityConfig {
 		 .authorizeHttpRequests(authorize -> authorize
 				 	.requestMatchers(HttpMethod.GET, "/api/token").permitAll()
 				 	 .requestMatchers(HttpMethod.POST, "/auth/sigh-up/buyer").permitAll() 
-				 	 .requestMatchers(HttpMethod.GET, "/api/hello").authenticated()
-				 	.requestMatchers(HttpMethod.GET, "/api/executive/hello").hasAuthority("EXECUTIVE") 
+				 	.requestMatchers(HttpMethod.GET, "/auth/user").authenticated()
+				 	.requestMatchers(HttpMethod.GET, "/api/show/car/all").permitAll()
+				 	 .requestMatchers(HttpMethod.GET, "/insert/bought_car/details/{cId}/{bId}").hasAuthority("BUYER")
+				 	 	 
 				 	
 				.anyRequest().permitAll()
 			) 
