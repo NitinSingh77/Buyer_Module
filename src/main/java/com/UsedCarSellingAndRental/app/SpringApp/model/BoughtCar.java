@@ -8,7 +8,6 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToOne;
 
 @Entity
 public class BoughtCar {
@@ -21,7 +20,7 @@ public class BoughtCar {
 	@ManyToOne
 	private Buyer buyer;
 	
-	@OneToOne
+	@ManyToOne
 	private Car car;
 	
 	public int getId() {

@@ -11,13 +11,28 @@ import com.UsedCarSellingAndRental.app.SpringApp.model.Car;
 @Repository
 public interface CarRepository extends JpaRepository<Car, Integer> {
 
-	@Query("SELECT c FROM Car c WHERE LOWER(c.body_type)=?1")
-	List<Car> searchByBodyType(String bodyType);
-
 	@Query("update Car c set carStatus='Sold' where id=?1")
 	void updateStatus(int id);
 
 	@Query("Select c from Car c where c.price<=?1")
 	List<Car> searchByPrice(double price);
+	
+	@Query("select c from Car c where c.car_model=?1")
+	Car getCarByName(String name);
+
+	
+	@Query("select c from Car c where c.carStatus='Available_for_sale'")
+	List<Car> getAllCar();
+
+	
+	@Query("select c from Car c where c.car_model=?1")
+	List<Car> getAllCarByName(String carName);
+
+	
+	@Query("select c from Car c where c.carStatus='Sold'")
+	List<Car> getAllSoldCar();
+
+	
+	
 	
 }

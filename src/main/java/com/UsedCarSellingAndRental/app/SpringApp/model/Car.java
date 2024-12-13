@@ -1,6 +1,7 @@
- package com.UsedCarSellingAndRental.app.SpringApp.model;
+package com.UsedCarSellingAndRental.app.SpringApp.model;
 
 import com.UsedCarSellingAndRental.app.SpringApp.enums.CarStatus;
+import com.UsedCarSellingAndRental.app.SpringApp.enums.FuelType;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -15,24 +16,57 @@ public class Car {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
-	
+
 	private String car_model;
 	private String purchase_year;
-	private String fuel_type;
 	
 	@Enumerated(EnumType.STRING)
+	private FuelType fuel_type;
+
+	@Enumerated(EnumType.STRING)
 	private CarStatus carStatus;
-	
+
 	private String body_type;
-	
+
 	private double price;
-	
+
 	private String car_condition;
-	private String  verified;
 	
+	private String ownership_status;
+	private String distance_travelled;
 	
+	private String mileage;
+	
+
 	@OneToOne
 	private Document document;
+	
+	
+	
+
+	public String getOwnership_status() {
+		return ownership_status;
+	}
+
+	public void setOwnership_status(String ownership_status) {
+		this.ownership_status = ownership_status;
+	}
+
+	public String getDistance_travelled() {
+		return distance_travelled;
+	}
+
+	public void setDistance_travelled(String distance_travelled) {
+		this.distance_travelled = distance_travelled;
+	}
+
+	public String getMileage() {
+		return mileage;
+	}
+
+	public void setMileage(String mileage) {
+		this.mileage = mileage;
+	}
 
 	public int getId() {
 		return id;
@@ -58,11 +92,13 @@ public class Car {
 		this.purchase_year = purchase_year;
 	}
 
-	public String getFuel_type() {
+	
+
+	public FuelType getFuel_type() {
 		return fuel_type;
 	}
 
-	public void setFuel_type(String fuel_type) {
+	public void setFuel_type(FuelType fuel_type) {
 		this.fuel_type = fuel_type;
 	}
 
@@ -90,10 +126,6 @@ public class Car {
 		this.car_condition = car_condition;
 	}
 
-	public String getVerified() {
-		return verified;
-	}
-
 	public CarStatus getCarStatus() {
 		return carStatus;
 	}
@@ -101,11 +133,6 @@ public class Car {
 	public void setCarStatus(CarStatus carStatus) {
 		this.carStatus = carStatus;
 	}
-
-	public void setVerified(String verified) {
-		this.verified = verified;
-	}
-
 
 	public Document getDocument() {
 		return document;
@@ -115,7 +142,27 @@ public class Car {
 		this.document = document;
 	}
 
+	public Car(int id, String car_model, String purchase_year, FuelType fuel_type, CarStatus carStatus,
+			String body_type, double price, String car_condition, String ownership_status, String distance_travelled,
+			String mileage, Document document) {
+		super();
+		this.id = id;
+		this.car_model = car_model;
+		this.purchase_year = purchase_year;
+		this.fuel_type = fuel_type;
+		this.carStatus = carStatus;
+		this.body_type = body_type;
+		this.price = price;
+		this.car_condition = car_condition;
+		this.ownership_status = ownership_status;
+		this.distance_travelled = distance_travelled;
+		this.mileage = mileage;
+		this.document = document;
+	}
+	
+	public Car() {}
+
 	
 	
-	
+
 }

@@ -124,4 +124,15 @@ public class BuyerService {
 
 	}
 
+
+	public Buyer getBuyerDetailsByUsername(String username) {
+		return buyerRepository.getBuyerDetailsByUsername(username);
+	}
+
+
+	public Buyer insert(Buyer buyer) {
+ 
+		return buyerRepository.save(buyer);
+	}
+
 }

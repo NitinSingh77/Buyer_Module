@@ -1,13 +1,12 @@
 package com.UsedCarSellingAndRental.app.SpringApp.controller;
 
-import java.security.Principal;
 import java.time.LocalDate;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.UsedCarSellingAndRental.app.SpringApp.dto.ResponseMessageDto;
@@ -36,8 +35,8 @@ public class BoughtCarController {
 	
 	/*---------------------------------------Inserting bought car details---------------------------------------------------------------*/
 	
-	@GetMapping("/insert/bought_car/details/{cId}/{bId}")
-	public ResponseEntity<?> boughtCarDetails(@PathVariable int cId, @PathVariable int bId, ResponseMessageDto dto, Principal principal)
+	@PostMapping("/insert/bought_car/details")
+	public ResponseEntity<?> boughtCarDetails(@RequestParam int cId, @RequestParam int bId, ResponseMessageDto dto)
 	{	
 		Buyer buyer= null;
 		Car car=null;

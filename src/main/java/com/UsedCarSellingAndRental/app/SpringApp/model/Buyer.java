@@ -30,6 +30,8 @@ public class Buyer {
     private User user;
 
 
+    public Buyer(){}
+    
     // Getters and setters
 
     public int getId() {
@@ -64,7 +66,12 @@ public class Buyer {
     public void setUser(User user) {
         this.user = user;
     }
+	@Override
+	public String toString() {
+		return "Buyer [id=" + id + ", email=" + email + ", phone=" + phone + ", address=" + address + ", user=" + user
+				+ "]";
+	}
    
-
+ 
    
 }

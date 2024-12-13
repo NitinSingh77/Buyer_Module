@@ -1,14 +1,17 @@
 package com.UsedCarSellingAndRental.app.SpringApp.controller;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.UsedCarSellingAndRental.app.SpringApp.dto.ResponseMessageDto;
+import com.UsedCarSellingAndRental.app.SpringApp.enums.QueryStatus;
 import com.UsedCarSellingAndRental.app.SpringApp.exception.ResourceNotFoundException;
 import com.UsedCarSellingAndRental.app.SpringApp.model.Buyer;
 import com.UsedCarSellingAndRental.app.SpringApp.model.Car;
@@ -17,10 +20,9 @@ import com.UsedCarSellingAndRental.app.SpringApp.service.BuyerService;
 import com.UsedCarSellingAndRental.app.SpringApp.service.CarQueriesService;
 import com.UsedCarSellingAndRental.app.SpringApp.service.CarService;
 
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
-
 
 @RestController
+@CrossOrigin(origins = {"http://localhost:4200"})
 public class CarQueriesController {
 	
 	@Autowired
@@ -33,36 +35,29 @@ public class CarQueriesController {
 	CarService carService;
 	
 	@PostMapping("/carQueries/add/{cId}/{bId}")
-    public ResponseEntity<?> addCarQuery(@PathVariable int cId, @PathVariable int bId,@RequestBody CarQueries carQueries, ResponseMessageDto dto) throws ResourceNotFoundException {
+    public CarQueries addCarQuery(@PathVariable int cId, @PathVariable int bId, @RequestParam String message) throws ResourceNotFoundException {
 		
         
-		Buyer buyer= null;
-		Car car=null;
+		Buyer buyer= buyerService.Validate(bId);
+		Car car=carService.validate(cId);
 		
-		try {
-			 buyer= buyerService.Validate(bId);
-		} catch (ResourceNotFoundException e) {
-			dto.setMsg(e.getMessage());
-			return ResponseEntity.badRequest().body(dto);
-		}
-		try {
-			 car= carService.validate(cId);
-		} catch (ResourceNotFoundException e) {
-			
-			dto.setMsg(e.getMessage());
-			return ResponseEntity.badRequest().body(dto);
-		}
-		
-		String message= carQueries.getMessage();
+		CarQueries carQueries= new CarQueries();
+		 carQueries.setMessage(message);
         carQueries.setCar(car);
         carQueries.setBuyer(buyer);
         carQueries.setDate(LocalDate.now()); 
-        carQueries.setMessage(message);
+        carQueries.setQueryStatus(QueryStatus.Pending);
+      
         carQueries=carQueriesService.saveCarQuery(carQueries);
-        dto.setMsg("Car query added successfully.");
-        return ResponseEntity.ok(carQueries);
+      
+        return carQueries;
     }
 
+	/*-----------------------------------Fetch All Car Queries-------------------------------------------------*/
 	
+	@GetMapping("/api/fetch/all/carqueries")
+	public List<CarQueries> fetchAllQueries(){
+		return carQueriesService.fetchAllQueries();
+	}
 	
 }

@@ -28,7 +28,7 @@ public class User implements UserDetails{
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
 	@Column(nullable = false)
-	private String username; //findByUsername(username)
+	private String username; 
 	@Column(nullable = false)
 	private String password;
 	
@@ -112,4 +112,23 @@ public class User implements UserDetails{
 	public boolean isEnabled() {
 		return enabled;
 	}
+
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", username=" + username + ", password=" + password + ", name=" + name + ", role="
+				+ role + ", enabled=" + enabled + "]";
+	}
+
+	public User(int id, String username, String password, String name, Role role, boolean enabled) {
+		super();
+		this.id = id;
+		this.username = username;
+		this.password = password;
+		this.name = name;
+		this.role = role;
+		this.enabled = enabled;
+	}
+	
+	public User() {}
+	
 }

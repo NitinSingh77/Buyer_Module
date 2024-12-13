@@ -43,4 +43,10 @@ public class UserService {
 		return userRepository.findByUsername(username).get();
 	}
 
+
+	public User insert(User user) {
+		// TODO Auto-generated method stub
+		return userRepository.save(user);
+	}
+
 }

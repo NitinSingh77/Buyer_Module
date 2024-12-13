@@ -1,5 +1,5 @@
 package com.UsedCarSellingAndRental.app.SpringApp.enums;
 
 public enum CarStatus {
-	Sold, Available_for_sale, Pending, processing
+	Sold, Available_for_sale, Pending, Processing
 }

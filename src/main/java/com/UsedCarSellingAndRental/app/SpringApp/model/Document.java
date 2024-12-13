@@ -16,11 +16,8 @@ public class Document {
 	@Column(nullable= false)
 	private String time;
 	@Column(nullable= false)
-	private String verified;
-	@Column(nullable= false)
 	private String document_type;
-	@Column(nullable= false)
-	private String picture_path;
+	
 	
 	
 	public int getId() {
@@ -41,29 +38,23 @@ public class Document {
 	public void setTime(String time) {
 		this.time = time;
 	}
-	public String getVerified() {
-		return verified;
-	}
-	public void setVerified(String verified) {
-		this.verified = verified;
-	}
+	
 	public String getDocument_type() {
 		return document_type;
 	}
 	public void setDocument_type(String document_type) {
 		this.document_type = document_type;
 	}
-	public String getPicture_path() {
-		return picture_path;
+	
+	public Document() {}
+	public Document(int id, String document_upload, String time, String document_type) {
+		super();
+		this.id = id;
+		this.document_upload = document_upload;
+		this.time = time;
+		this.document_type = document_type;
 	}
-	public void setPicture_path(String picture_path) {
-		this.picture_path = picture_path;
-	}
-	@Override
-	public String toString() {
-		return "Document [id=" + id + ", document_upload=" + document_upload + ", time=" + time + ", verified="
-				+ verified + ", document_type=" + document_type + ", picture_path=" + picture_path + "]";
-	}
+	
 	
 	
 }

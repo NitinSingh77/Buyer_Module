@@ -85,8 +85,8 @@ public class AuthController {
 	public ResponseEntity<?> buyerSignUp(@RequestBody Buyer buyer, ResponseMessageDto dto)
 	{
 //		System.out.println(buyer);
-		System.out.println("123");
-		
+//		System.out.println("123");
+//		System.out.println(buyer);
 		try {
 			User user = new User();
 			user.setName(buyer.getUser().getName());
